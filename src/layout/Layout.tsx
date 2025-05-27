@@ -1,13 +1,21 @@
-import React, { type ReactNode } from 'react'
-import { Sidebar } from './Sidebar'
+import React, { type ReactNode } from "react";
+import { LeftBar } from "./components/LeftBar";
 
-function Layout({children}:{children:ReactNode}) {
-  return (
-      <div className='flex'>
-          <Sidebar />
-          {children}
-      </div>
-  )
+
+interface AppLayoutProps {
+  children : ReactNode
 }
 
-export default Layout
+function Layout({ children }: AppLayoutProps) {
+  return (
+    <div className="flex justify-between">
+      <LeftBar />
+      <section className="flex-1 ">
+        {children}
+      </section>
+     {/* <RightBar/> */}
+    </div>
+  );
+}
+
+export default Layout;
