@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function CardPreview() {
   return (
     <div className="flex justify-center items-center p-6">
-      <Card className="w-full h-[600px] rounded-3xl shadow-xl border border-gray-300 bg-neutral-100 relative flex flex-col items-center justify-center">
+      <Card className="w-full h-[500px] rounded-3xl shadow-xl border border-gray-300 bg-neutral-100 relative flex flex-col items-center justify-center">
         <CardContent className="flex flex-col items-center justify-center h-full text-center">
           <div className="text-red-500 text-sm font-medium mb-2">
             <svg

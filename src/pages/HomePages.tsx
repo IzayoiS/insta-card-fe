@@ -1,3 +1,4 @@
+import DraggableLinkList from "@/components/LinkList";
 import { Button } from "@/components/ui/button";
 import RightBar from "@/layout/components/RightBar";
 import Layout from "@/layout/Layout";
@@ -53,6 +54,7 @@ export default function HomePage() {
               view archive
             </Button>
           </div>
+          <DraggableLinkList/>
         </div>
         <RightBar />
       </div>
