@@ -18,8 +18,8 @@ export function LeftBar() {
 
   return (
     <div className="md:w-64">
-      {/* Mobile Hamburger */}
-      <div className="md:hidden py-2 pl-3">
+      
+      <div className="md:hidden  mr-3">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon">
@@ -35,8 +35,7 @@ export function LeftBar() {
         </Sheet>
       </div>
 
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block h-full  border-r min-h-screen">
+       <div className="hidden md:block h-full  border-r min-h-screen">
         <SidebarContent pathname={pathname} />
       </div>
     </div>

@@ -1,12 +1,17 @@
 import CardPreview from "@/components/CardPreview";
+import type { LinkItem } from "@/utils/schemas/DummySchema";
 import React from "react";
 
-function RightBar() {
+type Props = {
+  links: LinkItem[];
+};
+
+function RightBar({links}:Props) {
   return (
-    <div className="w-1/3 border-l h-screen">
+    <div className="w-[40%] ">
       <div className="fixed">
         <div className=" ">
-        <CardPreview/>
+        <CardPreview links={links}/>
         </div>
         </div>
     </div>

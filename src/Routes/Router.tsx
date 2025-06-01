@@ -1,27 +1,32 @@
 import HomePage from "@/pages/HomePages";
-import Login from "@/pages/Login";
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRouteLayout from "./ProtectedRouteLayout";
 import MyShop from "@/pages/MyShop";
+import Register from "@/pages/Register";
+import Login from "@/pages/Login";
 
-let router = createBrowserRouter([{
+let router = createBrowserRouter([
+  {
     Component: ProtectedRouteLayout,
     children: [
-        {
-            path: "/",
-            Component: HomePage
-        },
-        {
-            path: "/myshop",
-            Component: MyShop
-        }
-    ],
-    
-},
       {
+        path: "/",
+        Component: HomePage,
+      },
+      {
+        path: "/myshop",
+        Component: MyShop,
+      },
+    ],
+  },
+  {
+    path: "/register",
+    Component: Register,
+    },
+    {
         path: "/login",
         Component: Login
-    }
+  }
 ]);
 
-export default router
+export default router;
