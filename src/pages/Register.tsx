@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Register() {
   return (
@@ -14,6 +15,12 @@ function Register() {
             <Input placeholder="password" type="text" />
             <Button className="hover:bg-gray-500 cursor-pointer">Submit</Button>
           </div>
+          <p className="pt-3 text-center">
+            Have account?{" "}
+            <NavLink to="/login" className="text-gray-500">
+              Login
+            </NavLink>
+          </p>
         </div>
       </div>
     </main>

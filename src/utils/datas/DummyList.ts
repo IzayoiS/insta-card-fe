@@ -1,9 +1,4 @@
-export type LinkItem = {
-  id: string;
-  title: string;
-  url: string;
-  active: boolean;
-};
+import type { LinkItem } from "../schemas/DummySchema";
 
 export const initialLinks: LinkItem[] = [
   { id: "1", title: "My Website", url: "https://example.com", active: true },
