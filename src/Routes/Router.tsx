@@ -1,9 +1,9 @@
 import HomePage from "@/pages/HomePages";
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRouteLayout from "./ProtectedRouteLayout";
-import MyShop from "@/pages/MyShop";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
+import MyProfile from "@/pages/MyProfile";
 
 let router = createBrowserRouter([
   {
@@ -14,8 +14,8 @@ let router = createBrowserRouter([
         Component: HomePage,
       },
       {
-        path: "/myshop",
-        Component: MyShop,
+        path: "/myprofile",
+        Component: MyProfile,
       },
     ],
   },
