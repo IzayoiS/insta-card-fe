@@ -34,46 +34,48 @@ export default function HomePage() {
         <p className="ml-5 mt-5 font-bold text-2xl">INSTACARD</p>
       </div>
       <div className="flex">
-        <div className="m-3 w-full border-r pr-4">
-          <div className="flex justify-between border border-gray-300 rounded-3xl p-3 items-center bg-green-100">
-            <div>
-              <p>Your Link is live:</p>
-              <a
-                href={PublicURL}
-                className="underline hover:-underline-offset-2"
-                target="_blank"
-              >
-                {PublicURL}
-              </a>
-            </div>
-            <Button
-              variant={"outline"}
-              className="cursor-pointer rounded-3xl"
-              onClick={handleCopy}
-            >
-              sharelink button
-            </Button>
-          </div>
-
-          <div className="px-3 py-5 flex justify-between items-center">
-            <div className="flex items-center gap-3 ">
-              <img
-                src={ImageDefault || me?.data?.profile?.avatar}
-                alt=""
-                className="rounded-full h-20 w-20"
-              />
+        <div className="w-full pr-4 border-r">
+          <div className="m-3">
+            <div className="flex justify-between border  rounded-3xl p-3 items-center bg-green-100">
               <div>
-                <p>{me?.data?.profile?.fullName}</p>
-                <p>{me?.data?.profile?.bio || "No bio yet"}</p>
+                <p>Your Link is live:</p>
+                <a
+                  href={PublicURL}
+                  className="underline hover:-underline-offset-2"
+                  target="_blank"
+                >
+                  {PublicURL}
+                </a>
               </div>
+              <Button
+                variant={"outline"}
+                className="cursor-pointer rounded-3xl"
+                onClick={handleCopy}
+              >
+                sharelink button
+              </Button>
             </div>
-            <Button className="bg-gray-500 px-3 py-6 rounded-full cursor-pointer">
-              <p>●●●</p>
-            </Button>
-          </div>
-          <DialogAddUrl />
-          <div>
-            <LinkList links={links} />
+
+            <div className="px-3 py-5 flex justify-between items-center">
+              <div className="flex items-center gap-3 ">
+                <img
+                  src={ImageDefault || me?.data?.profile?.avatar}
+                  alt=""
+                  className="rounded-full h-20 w-20"
+                />
+                <div>
+                  <p>{me?.data?.profile?.fullName}</p>
+                  <p>{me?.data?.profile?.bio || "No bio yet"}</p>
+                </div>
+              </div>
+              {/* <Button className="bg-gray-500 px-3 py-6 rounded-full cursor-pointer">
+                <p>●●●</p>
+              </Button> */}
+            </div>
+            <DialogAddUrl />
+            <div>
+              <LinkList links={links} />
+            </div>
           </div>
         </div>
         <RightBar links={links} />
