@@ -4,10 +4,9 @@ import { useAuth } from "@/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useMe } from "@/hooks/useLogin";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ImageDefault from "@/assets/defaulImage.jpg";
 
 const navItems = [
@@ -16,7 +15,8 @@ const navItems = [
 ];
 
 export function LeftBar() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const [open, setOpen] = useState(false);
 
