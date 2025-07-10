@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { NavLink, useNavigate } from "react-router-dom";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useLogin } from "@/hooks/useLogin";
 import { useAuth } from "@/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useLogin } from "@/hooks/useLogin";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import LoginSchema, { type LoginSchemaType } from "@/utils/schemas/AuthTypes";
 
 function Login() {
-  const [showPassword, setShowPassword]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login, isAuth } = useAuth();
   const { mutateLogin, isPending } = useLogin();
@@ -20,7 +20,7 @@ function Login() {
       navigate("/");
     }
   }, [isAuth, navigate]);
-  
+
   const {
     register,
     handleSubmit,
@@ -30,11 +30,11 @@ function Login() {
   });
 
   const onSubmit = async (data: LoginSchemaType) => {
-    const res = await mutateLogin(data); 
-    login(res.token); 
+    const res = await mutateLogin(data);
+    login(res.token);
     navigate("/");
   };
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-200">
       <div className="p-8 flex items-center justify-center min-h-screen">
