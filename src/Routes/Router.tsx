@@ -1,10 +1,10 @@
-import HomePage from "@/pages/HomePages";
+import HomePage from "@/views/HomePages";
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRouteLayout from "./ProtectedRouteLayout";
-import Register from "@/pages/Register";
-import Login from "@/pages/Login";
-import MyProfile from "@/pages/MyProfile";
-import { PublicURL } from "@/pages/PublicURL";
+import Register from "@/views/Register";
+import Login from "@/views/Login";
+import MyProfile from "@/views/MyProfile";
+import { PublicURL } from "@/views/PublicURL";
 
 const router = createBrowserRouter([
   {
