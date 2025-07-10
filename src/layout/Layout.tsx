@@ -1,19 +1,15 @@
 import React, { type ReactNode } from "react";
 import { LeftBar } from "./components/LeftBar";
 
-
 interface AppLayoutProps {
-  children : ReactNode
+  children: ReactNode;
 }
 
 function Layout({ children }: AppLayoutProps) {
   return (
     <div className="flex justify-between">
       <LeftBar />
-      <section className="flex-1 ">
-        {children}
-      </section>
-     {/* <RightBar/> */}
+      <section className="flex-1 ">{children}</section>
     </div>
   );
 }

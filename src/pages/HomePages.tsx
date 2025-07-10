@@ -2,22 +2,19 @@
 import { DialogAddUrl } from "@/components/AddUrl";
 import LinkList from "@/components/LinkList";
 import { Button } from "@/components/ui/button";
+import { useGetLink } from "@/hooks/useLink";
 import RightBar from "@/layout/components/RightBar";
 import Layout from "@/layout/Layout";
 import { initialLinks } from "@/utils/datas/DummyList";
 import { useState } from "react";
 
 export default function HomePage() {
-  const [links, setLinks] = useState(initialLinks);
-  const handleAddLink = (title: string, url: string) => {
-    const newLink = {
-      id: crypto.randomUUID(),
-      title,
-      url,
-      active: true,
-    };
-    setLinks((prev) => [...prev, newLink]);
-  };
+  const { data: links = [], isLoading, isError } = useGetLink();
+  if (isLoading) return <p className="p-3 text-gray-600">Loading...</p>;
+  if (isError )
+    return <p className="p-3 text-red-500">Failed to load links.</p>;
+
+
   return (
     <main className="">
       <div className="pb-3 border-b">
@@ -37,7 +34,6 @@ export default function HomePage() {
             </Button>
           </div>
 
-
           <div className="px-3 py-5 flex justify-between items-center">
             <div className="flex items-center gap-3 ">
               <img
@@ -55,12 +51,10 @@ export default function HomePage() {
               <p>●●●</p>
             </Button>
           </div>
-          <DialogAddUrl onAdd={handleAddLink}/>
+          <DialogAddUrl />
           <div>
-          
-          <LinkList links={links} setLinks={setLinks} />
+            <LinkList  links={links}  />
           </div>
-
         </div>
         <RightBar links={links} />
       </div>

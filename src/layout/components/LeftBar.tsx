@@ -7,18 +7,20 @@ import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { usePathname } from "next/navigation";
 import { href, Link, NavLink } from "react-router-dom";
+import { useAuth } from "@/auth/AuthContext";
 
-const navItems = [{ name: "My Linktree", href: "/" },
-  {name: "button2", href:"/myshop"}
+const navItems = [
+  { name: "My Linktree", href: "/" },
+  { name: "My Profile", href: "/myprofile" },
 ];
 
 export function LeftBar() {
   const pathname = usePathname();
+
   const [open, setOpen] = useState(false);
 
   return (
     <div className="md:w-64">
-      
       <div className="md:hidden  mr-3">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
@@ -35,7 +37,7 @@ export function LeftBar() {
         </Sheet>
       </div>
 
-       <div className="hidden md:block h-full  border-r min-h-screen">
+      <div className="hidden md:block h-full  border-r min-h-screen">
         <SidebarContent pathname={pathname} />
       </div>
     </div>
@@ -49,12 +51,17 @@ function SidebarContent({
   pathname: string;
   onNavigate?: () => void;
 }) {
+  const { logout } = useAuth();
+  function onLogout() {
+    logout();
+  }
+
   return (
     <div className="pt-3 fixed">
       <div className="pl-3 text-xl font-bold">user logged in</div>
       <div className="mx-2 my-3">
         {navItems.map((item) => (
-          <NavLink to={item.href} onClick={onNavigate}>
+          <NavLink to={item.href} onClick={onNavigate} key={item.href}>
             <Button
               variant={"outline"}
               className=" justify-start hover:bg-gray-700 transition duration-300 ease-in-out text-black w-full mb-1"
@@ -65,7 +72,12 @@ function SidebarContent({
         ))}
       </div>
 
-      <Button className="fixed -bottom-0 mb-3  left-4 bg-gray-800 cursor-pointer">
+      <Button
+        onClick={() => {
+          onLogout();
+        }}
+        className="fixed -bottom-0 mb-3  left-4 bg-gray-800 cursor-pointer"
+      >
         Logout
       </Button>
     </div>
