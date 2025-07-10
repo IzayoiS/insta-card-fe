@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { LinkItem } from "@/utils/schemas/DummySchema";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { useMe } from "@/hooks/useLogin";
+import ImageDefault from "@/assets/defaulImage.jpg";
 
 type Props = {
   links: LinkItem[];
@@ -10,11 +12,19 @@ type Props = {
 
 export default function CardPreview({ links }: Props) {
   const activeLinks = (links ?? []).filter((link) => link.visible);
+  const { data: me } = useMe();
+
   return (
     <div className="flex justify-center items-center p-6">
-      <Card className="w-70 h-[500px] rounded-3xl shadow-xl border border-gray-300 bg-neutral-100 relative flex flex-col items-center justify-center">
-        <CardContent className="flex flex-col items-center justify-center h-full text-center">
+      <Card className="w-100 h-[50rem] rounded-3xl shadow-xl border border-gray-300 bg-neutral-100 relative flex flex-col items-center">
+        <CardContent className="text-center">
           <div>
+            <img
+              src={ImageDefault || me?.data?.profile?.avatar}
+              alt={me?.data?.username}
+              className="rounded-full h-20 w-20 m-auto mb-5 mt-4"
+            />
+            <p className="text-4xl mb-20">{me?.data?.username}</p>
             {activeLinks.length === 0 ? (
               <div className="text-red-500 text-sm font-medium mb-2">
                 <svg
@@ -42,15 +52,15 @@ export default function CardPreview({ links }: Props) {
               </div>
             ) : (
               activeLinks.map((link) => (
-                <div className="flex flex-col " key={link.id}>
+                <div className="flex flex-col" key={link.id}>
                   <Link
                     key={link.id}
                     to={link.url}
                     target="_blank"
-                    className=" bg-white rounded-xl p-3 shadow hover:bg-gray-100 mb-2"
+                    className=" bg-white w-80 p-3 shadow hover:bg-gray-100 mb-2"
                   >
-                    <Button variant={"link"}>
-                      <p className="text-blue-600 font-semibold cursor-pointer">
+                    <Button variant={"link"} className="hover:no-underline">
+                      <p className="font-semibold cursor-pointer">
                         {link.title}
                       </p>
                     </Button>

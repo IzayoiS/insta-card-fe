@@ -1,17 +1,18 @@
-// components/Sidebar.tsx
 "use client";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/auth/AuthContext";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useMe } from "@/hooks/useLogin";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { usePathname } from "next/navigation";
-import { href, Link, NavLink } from "react-router-dom";
-import { useAuth } from "@/auth/AuthContext";
+import { NavLink } from "react-router-dom";
+import ImageDefault from "@/assets/defaulImage.jpg";
 
 const navItems = [
   { name: "My Linktree", href: "/" },
-  { name: "My Profile", href: "/myprofile" },
+  // { name: "My Profile", href: "/myprofile" },
 ];
 
 export function LeftBar() {
@@ -45,7 +46,6 @@ export function LeftBar() {
 }
 
 function SidebarContent({
-  pathname,
   onNavigate,
 }: {
   pathname: string;
@@ -55,16 +55,24 @@ function SidebarContent({
   function onLogout() {
     logout();
   }
+  const { data: me } = useMe();
 
   return (
     <div className="pt-3 fixed">
-      <div className="pl-3 text-xl font-bold">user logged in</div>
+      <div className="pl-3 text-3xl font-bold flex flex-row">
+        <img
+          src={ImageDefault || me?.data?.profile?.avatar}
+          alt={me?.data?.username}
+          className="rounded-full h-10 w-10 mr-3"
+        />
+        {me?.data?.username}
+      </div>
       <div className="mx-2 my-3">
         {navItems.map((item) => (
           <NavLink to={item.href} onClick={onNavigate} key={item.href}>
             <Button
               variant={"outline"}
-              className=" justify-start hover:bg-gray-700 transition duration-300 ease-in-out text-black w-full mb-1"
+              className=" justify-start hover:bg-gray-700 transition duration-300 ease-in-out text-black hover:text-white w-60 mb-1 cursor-pointer"
             >
               {item.name}
             </Button>

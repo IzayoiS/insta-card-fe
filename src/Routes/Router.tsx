@@ -4,8 +4,9 @@ import ProtectedRouteLayout from "./ProtectedRouteLayout";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import MyProfile from "@/pages/MyProfile";
+import { PublicURL } from "@/pages/PublicURL";
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     Component: ProtectedRouteLayout,
     children: [
@@ -22,11 +23,15 @@ let router = createBrowserRouter([
   {
     path: "/register",
     Component: Register,
-    },
-    {
-        path: "/login",
-        Component: Login
-  }
+  },
+  {
+    path: "/login",
+    Component: Login,
+  },
+  {
+    path: "/:username",
+    Component: PublicURL,
+  },
 ]);
 
 export default router;

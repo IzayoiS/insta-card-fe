@@ -1,8 +1,8 @@
-import type { LoginSchemaType } from "@/utils/schemas/AuthTypes";
-import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/api"; // Pastikan kamu sudah mengimport API instance dari axios
+import type { LoginSchemaType } from "@/utils/schemas/AuthTypes";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import Cookies from "js-cookie";
+import { AxiosError } from "axios";
 
 export function useLogin() {
   const {
@@ -13,32 +13,42 @@ export function useLogin() {
     mutationKey: ["login"],
     mutationFn: async (data: LoginSchemaType) => {
       const res = await api.post("/auth/login", data);
-      return res.data; // jangan simpan token di sini
+      return res.data;
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || "ada yg salah");
+    onError: (error: AxiosError) => {
+      toast.error(
+        (error.response?.data as { message?: string })?.message || "Error login"
+      );
     },
   });
 
   return { mutateLogin, dataLogin, isPending };
 }
 
+type UserLoginType = {
+  data: {
+    username: string;
+    email: string;
+    profile: {
+      fullName: string;
+      bio: string;
+      avatar: string;
+    };
+  };
+};
 
 export function useMe() {
-  const {
-    mutateAsync: mutateLogin,
-    data: dataLogin,
-    isPending,
-  } = useMutation({
-    mutationKey: ["check"],
-    mutationFn: async (data: LoginSchemaType) => {
-      const res = await api.post("/auth/me", data);
-      console.log(res.data);
+  const token = localStorage.getItem("token");
+  return useQuery({
+    queryKey: ["me"],
+    queryFn: async () => {
+      const res = await api.get<UserLoginType>("/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     },
-    onError: (error: any) => {
-      toast.error(error.response.data.message);
-    },
+    retry: false,
   });
-  return { mutateLogin, dataLogin, isPending };
 }

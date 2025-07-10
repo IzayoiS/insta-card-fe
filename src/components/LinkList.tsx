@@ -23,7 +23,7 @@ type Props = {
   links: LinkItem[];
 };
 
-export default function LinkList({links}:Props) {
+export default function LinkList({ links }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValues, setEditValues] = useState<{
     [id: string]: { title: string; url: string };
@@ -37,8 +37,6 @@ export default function LinkList({links}:Props) {
       [link.id]: { title: link.title, url: link.url },
     }));
   };
-
-  
 
   const handleSave = (id: string) => {
     const { title, url } = editValues[id];
@@ -124,32 +122,40 @@ export default function LinkList({links}:Props) {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => handleEditToggle(link)} className="cursor-pointer"
+                    onClick={() => handleEditToggle(link)}
+                    className="cursor-pointer"
                   >
                     <Pencil className="h-4 w-4" />
                   </Button>
                 )}
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="destructive" size="icon" className="cursor-pointer hover:bg-red-700">
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      className="cursor-pointer hover:bg-red-700"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Hapus Link?</AlertDialogTitle>
+                      <AlertDialogTitle>Delete Link?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Tindakan ini tidak dapat dibatalkan. Link akan dihapus
-                        secara permanen dari sistem.
+                        This action cannot be undone. The link will be
+                        permanently deleted.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Batal</AlertDialogCancel>
+                      <AlertDialogCancel className="cursor-pointer">
+                        Cancel
+                      </AlertDialogCancel>
                       <AlertDialogAction
                         onClick={() => deleteLink(link.id)}
-                        disabled={deleting} className="bg-red-500 cursor-pointer"
+                        disabled={deleting}
+                        className="bg-red-500 cursor-pointer"
                       >
-                        Ya, hapus
+                        Yes, delete
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>

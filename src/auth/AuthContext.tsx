@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, type ReactNode } from "react";
-import Cookies from "js-cookie";
 
 interface AuthContextType {
   isAuth: boolean;
@@ -22,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("token", token);
     setIsAuth(true);
   };
-  
+
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuth(false);

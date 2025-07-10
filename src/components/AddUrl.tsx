@@ -48,7 +48,7 @@ export function DialogAddUrl() {
           <DialogFooter>
             <Button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-500 cursor-pointer"
+              className="bg-blue-600 hover:bg-blue-500 cursor-pointer w-full mt-3"
               disabled={isPending || (!url.trim() && !title.trim())}
             >
               {isPending ? "wait..." : "create"}

@@ -1,53 +1,55 @@
 import api from "@/utils/api";
-import type { LinkItem } from "@/utils/schemas/DummySchema";
-import { updateLink, type updateLinkDTO } from "@/utils/schemas/LinkType";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { ResponseLink } from "@/utils/schemas/DummySchema";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export function useCreate() {
-    const[ title , setTitle]=useState<string>("")
-    const [url, setUrl] = useState<string>("")
-    const queryClient = useQueryClient();
-    const {
-        mutateAsync:mutateAdd, data, isPending
-    } = useMutation({
-        mutationKey: ["add-link"],
-        mutationFn: async({ title, url }: {
-            title: string; 
-            url: string
-        }) => {
-            const res = await api.post("/link", {title, url})
-            return res.data
-        }, 
-        onError: () => {
-            toast.error("gagal buat link!!")
-        }, onSuccess: () => {
-            toast.success("yeay berhasil!")
-            queryClient.invalidateQueries({ queryKey: ["links"] }); 
-            setTitle("")
-            setUrl("")
-        }
-        
-    })
-  
-    return {
-        mutateAdd, url, setUrl, title, setTitle, data, isPending
-    }
+  const [title, setTitle] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
+  const queryClient = useQueryClient();
+  const {
+    mutateAsync: mutateAdd,
+    data,
+    isPending,
+  } = useMutation({
+    mutationKey: ["add-link"],
+    mutationFn: async ({ title, url }: { title: string; url: string }) => {
+      const res = await api.post("/link", { title, url });
+      return res.data;
+    },
+    onError: () => {
+      toast.error("Failed created link!!");
+    },
+    onSuccess: () => {
+      toast.success("Link created successfully!");
+      queryClient.invalidateQueries({ queryKey: ["links"] });
+      setTitle("");
+      setUrl("");
+    },
+  });
+
+  return {
+    mutateAdd,
+    url,
+    setUrl,
+    title,
+    setTitle,
+    data,
+    isPending,
+  };
 }
 
 export const useGetLink = () => {
   return useQuery({
     queryKey: ["links"],
     queryFn: async () => {
-      const res = await api.get("/link");
+      const res = await api.get<ResponseLink>("/link");
       return res.data.data;
     },
   });
 };
-  
+
 type EditLinkPayload = {
   id: string;
   title?: string;
@@ -64,11 +66,11 @@ export function useEditLink() {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Link berhasil diperbarui");
+      toast.success("Link updated successfully!");
       queryClient.invalidateQueries({ queryKey: ["links"] });
     },
     onError: () => {
-      toast.error("Gagal memperbarui link");
+      toast.error("Failed to edit link");
     },
   });
 }
@@ -82,11 +84,11 @@ export function useDeleteLink() {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Link berhasil dihapus");
+      toast.success("Link deleted successfully!");
       queryClient.invalidateQueries({ queryKey: ["links"] });
     },
     onError: () => {
-      toast.error("Gagal menghapus link");
+      toast.error("Failed to delete link");
     },
   });
 }
