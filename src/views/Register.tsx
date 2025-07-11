@@ -7,8 +7,8 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 function Register() {
   const { form, isPending, onSubmit } = useRegister();
-  const [showPassword,setShowPassword]=useState(false)
-  const [showConfirmPassword,setShowConfirmPassword]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   return (
     <main className="bg-gray-200">
       <div
@@ -24,6 +24,11 @@ function Register() {
             })}
           >
             <div className="flex flex-col gap-4">
+              <Input
+                placeholder="fullname"
+                type="text"
+                {...form.register("fullName")}
+              />
               <Input
                 placeholder="username"
                 type="text"
